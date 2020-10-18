@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/yarik0071.github.io/goit-react-hm-feedback/static/js/main.c66e9b22.chunk.js",
+    "main.js.map": "/yarik0071.github.io/goit-react-hm-feedback/static/js/main.c66e9b22.chunk.js.map",
+    "runtime-main.js": "/yarik0071.github.io/goit-react-hm-feedback/static/js/runtime-main.4a4225eb.js",
+    "runtime-main.js.map": "/yarik0071.github.io/goit-react-hm-feedback/static/js/runtime-main.4a4225eb.js.map",
+    "static/js/2.ee21d634.chunk.js": "/yarik0071.github.io/goit-react-hm-feedback/static/js/2.ee21d634.chunk.js",
+    "static/js/2.ee21d634.chunk.js.map": "/yarik0071.github.io/goit-react-hm-feedback/static/js/2.ee21d634.chunk.js.map",
+    "index.html": "/yarik0071.github.io/goit-react-hm-feedback/index.html",
+    "precache-manifest.93cc72afd1d31b239f91cb2d8f6c85aa.js": "/yarik0071.github.io/goit-react-hm-feedback/precache-manifest.93cc72afd1d31b239f91cb2d8f6c85aa.js",
+    "service-worker.js": "/yarik0071.github.io/goit-react-hm-feedback/service-worker.js",
+    "static/js/2.ee21d634.chunk.js.LICENSE.txt": "/yarik0071.github.io/goit-react-hm-feedback/static/js/2.ee21d634.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4a4225eb.js",
+    "static/js/2.ee21d634.chunk.js",
+    "static/js/main.c66e9b22.chunk.js"
+  ]
+}
