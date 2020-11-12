@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from 'prop-types'
 
 const Feedback = ({options}) => {
   return (
@@ -20,5 +21,8 @@ const Feedback = ({options}) => {
       </>
       )}
        
+Feedback.prototype = {
+  options: PropTypes.func.isRequired,
+};
 
   export default Feedback
