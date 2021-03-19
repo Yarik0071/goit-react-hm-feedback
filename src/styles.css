@@ -1,0 +1,21 @@
+.button {
+    background-color: white;
+    border: 1px solid black;
+    height: 22px;
+}
+
+.button:hover,
+.SearchForm-input:hover {
+    background-color: gray;
+}
+
+.SearchForm-input:focus {
+    background-color: yellow;
+}
+
+.SearchForm-input {
+    background-color: white;
+    border: 1px solid black;
+    height: 18px;
+}
+

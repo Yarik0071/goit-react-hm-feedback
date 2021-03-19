@@ -1,67 +1,65 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import FeedbackOptions from "./components/feedBack/FeedBack.js"
-import Statistics from "./components/statistics/Statistics.js"
-import Section from "./components/section/Section.js"
-import Notification from "./components/notification/Notification.js"
-import { Component } from 'react';
+
+import Buttons from "./components/buttons.js"
+import Statistic from './components/statistic.js'
+import SerchBar from './components/form.js'
+
+import './styles.css'
+const socket = new WebSocket('wss://trade.trademux.net:8800/?password=1234');
+
 
 class App extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    array: [],
+    total: 0,
+    currentValue: 0,
+    currentTime: 0
   };
+  
 
-  uppervalue = (field) => {
-    this.setState((prevState) => {
-      return {
-        [field]: prevState[field] + 1,
-      };
-    });
-  };
+  fetchLink = (totalLink, time) => {
+    fetch(totalLink)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          let secondTime = new Date().getTime()
+          let currentTime = secondTime - time
+          this.setState({currentTime: currentTime})
+        });
 
-  countTotalFeedback = () => {
-    let array = [];
-    for (let item in this.state) {
-      array.push(this.state[item]);
-    }
-    let total = array.reduce((acc, item) => acc + item);
-    return total;
-  };
+  }
 
-  countPositiveFeedbackPercentage = (total) => {
-    let num = 0;
-    total === 0 ? (num = 0) : (num = (this.state.good / total) * 100);
-    return Math.floor(num);
-  };
+  getValueFromSocet = (e) => {
+    let number = JSON.parse(e.data)
+      this.setState({array: [...this.state.array, number.value]})
+  }
+
+  takeValue = () => {
+    socket.addEventListener('message', (e) => {this.getValueFromSocet(e)});
+  }
+
+  getStatisticValue = () => {
+    const { array } = this.state
+
+
+    let length = array.length - 1
+    let mean = array.reduce((a,b) => a+b)/length
+    let stanDev = Math.sqrt(array.map(x => Math.pow(x-mean,2)).reduce((a,b) => a+b)/length);
+
+      this.setState({
+        total: Math.trunc(mean),
+        currentValue: Math.trunc(stanDev)
+      })
+  }
 
   render() {
-    let total = this.countTotalFeedback();
-    let positiveFeedback = this.countPositiveFeedbackPercentage(total);
 
     return (
       <>
-        <Section
-          title={"Please leave feedback"}
-          child={<FeedbackOptions options={this.uppervalue} />}
-        />
-        <Section
-          title={"Statistics"}
-          child={
-            total === 0 ? (
-              <Notification message={"No feedback given"} />
-            ) : (
-              <Statistics
-                good={this.state.good}
-                neutral={this.state.neutral}
-                bad={this.state.bad}
-                total={total}
-                positivePercentage={positiveFeedback}
-              />
-            )
-          }
-        />
+      <Buttons takeValue={this.takeValue} getStatisticValue={this.getStatisticValue}></Buttons>
+      <Statistic total={this.state.total} stanDev={this.state.currentValue}></Statistic>
+      <SerchBar fetchLink={this.fetchLink} currentTime={this.state.currentTime}></SerchBar>
       </>
     );
   }
